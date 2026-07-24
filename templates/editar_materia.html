@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="titulo-seccion">✏️ Editar Materia</h2>
+
+    <form action="{{ url_for('editar_materia', id=materia.id) }}" method="POST" class="formulario">
+        <div class="campo">
+            <label for="nombre_materia">Nombre de la Materia:</label>
+            <!-- Aquí estaba el problema: el name o el value no coincidían -->
+            <input type="text" id="nombre_materia" name="nombre_materia" 
+                   value="{{ materia.nombre_materia }}" required>
+        </div>
+
+        <div class="campo">
+            <label for="horas_por_semana">Horas por Semana:</label>
+            <input type="number" id="horas_por_semana" name="horas_por_semana" 
+                   value="{{ materia.horas_por_semana }}" required>
+        </div>
+
+        <button type="submit" class="boton-guardar">💾 Guardar Cambios</button>
+        <a href="{{ url_for('listar_materias') }}" class="boton-volver">↩️ Volver</a>
+    </form>
+</div>
+{% endblock %}
+

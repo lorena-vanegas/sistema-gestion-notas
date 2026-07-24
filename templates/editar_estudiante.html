@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Estudiante</title>
+</head>
+<body>
+  <h1>Editar Estudiante</h1>
+
+  <form method="POST">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ estudiante.nombre }}" required><br><br>
+
+    <label>Apellido:</label>
+    <input type="text" name="apellido" value="{{ estudiante.apellido }}" required><br><br>
+
+    <label>Tipo de documento:</label>
+    <select name="tipo_documento" required>
+      <option value="Cédula de ciudadanía" {% if estudiante.tipo_documento == "Cédula de ciudadanía" %}selected{% endif %}>Cédula de ciudadanía</option>
+      <option value="Tarjeta de identidad" {% if estudiante.tipo_documento == "Tarjeta de identidad" %}selected{% endif %}>Tarjeta de identidad</option>
+
+    </select><br><br>
+
+    <label>Número de documento:</label>
+    <input type="text" name="numero_documento" value="{{ estudiante.numero_documento }}" required><br><br>
+
+    <label>Fecha de nacimiento:</label>
+    <input type="date" name="fecha_nacimiento" value="{{ estudiante.fecha_nacimiento }}" required><br><br>
+
+    <label>Dirección:</label>
+    <input type="text" name="direccion" value="{{ estudiante.direccion }}"><br><br>
+
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" value="{{ estudiante.telefono }}"><br><br>
+
+    <label>Grado:</label>
+    <select name="grado" required>
+      {% for g in ["Transición","1","2","3","4","5","6","7","8","9","10","11"] %}
+        <option value="{{ g }}" {% if estudiante.grado == g %}selected{% endif %}>{{ g }}</option>
+      {% endfor %}
+    </select><br><br>
+
+    <label>Sede:</label>
+    <input type="text" name="sede" value="{{ estudiante.sede }}"><br><br>
+
+    <label>Género:</label>
+    <select name="genero" required>
+      <option value="Masculino" {% if estudiante.genero == "Masculino" %}selected{% endif %}>Masculino</option>
+      <option value="Femenino" {% if estudiante.genero == "Femenino" %}selected{% endif %}>Femenino</option>
+      <option value="Otro" {% if estudiante.genero == "Otro" %}selected{% endif %}>Otro</option>
+    </select><br><br>
+
+    <label>Estrato:</label>
+    <select name="estrato">
+      {% for e in [1,2,3,4,5,6] %}
+        <option value="{{ e }}" {% if estudiante.estrato == e|string %}selected{% endif %}>Estrato {{ e }}</option>
+      {% endfor %}
+    </select><br><br>
+
+    <label>Sisbén:</label>
+    <select name="sisben">
+      {% for s in ["A1","A2","B1","B2","C1","C2"] %}
+        <option value="{{ s }}" {% if estudiante.sisben == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select><br><br>
+
+    <label>EPS:</label>
+    <input type="text" name="eps" value="{{ estudiante.eps }}"><br><br>
+
+    <label>Tipo de sangre:</label>
+    <select name="tipo_sangre" required>
+      {% for t in ["A+","A-","B+","B-","AB+","AB-","O+","O-"] %}
+        <option value="{{ t }}" {% if estudiante.tipo_sangre == t %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select><br><br>
+
+    <label>¿Tiene discapacidad?</label>
+    <select name="discapacidad" required>
+      <option value="No" {% if estudiante.discapacidad == "No" %}selected{% endif %}>No</option>
+      <option value="Sí" {% if estudiante.discapacidad == "Sí" %}selected{% endif %}>Sí</option>
+    </select><br><br>
+
+    <label>¿Cuál discapacidad?</label>
+    <input type="text" name="cual_discapacidad" value="{{ estudiante.cual_discapacidad }}"><br><br>
+
+    <button type="submit">💾 Guardar cambios</button>
+  </form>
+
+  <br>
+  <a href="{{ url_for('listar_estudiantes') }}">⬅️ Volver a la lista</a>
+</body>
+</html>
+
+
+
+

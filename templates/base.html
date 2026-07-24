@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sistema de Notas{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<!-- Bootstrap CSS -->
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-ENjdO4Dr2bkBIFxQpeoKekHkz6T4U0nPEzvF6KoA5rGkLfqz8H6a0Zl5WvC2lv9K"
+crossorigin="anonymous"
+/>
+
+
+
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav style="background-color:#0d6efd; padding:10px; color:white;">
+        <a href="{{ url_for('index') }}" style="margin-right:15px; color:white; text-decoration:none;">🏠 Inicio</a>
+        <a href="{{ url_for('listar_estudiantes') }}" style="margin-right:15px; color:white; text-decoration:none;">👨‍🎓 Estudiantes</a>
+        <a href="{{ url_for('listar_docentes') }}" style="margin-right:15px; color:white; text-decoration:none;">👩‍🏫 Docentes</a>
+        <a href="{{ url_for('listar_materias') }}" style="margin-right:15px; color:white; text-decoration:none;">📚 Materias</a>
+        <a href="{{ url_for('listar_logros') }}" style="margin-right:15px; color:white; text-decoration:none;">🏆 Logros</a>
+        <a href="{{ url_for('listar_notas') }}" style="margin-right:15px; color:white; text-decoration:none;">📒 Notas</a>
+        <a href="{{ url_for('logout') }}" style="float:right; color:white; text-decoration:none;">🚪 Cerrar sesión</a>
+        <a href="{{ url_for('reportes') }}" style="margin-right:15px; color:white; text-decoration:none;">📄 Reportes</a>
+    </nav>
+
+    <!-- Contenido dinámico -->
+    <div style="padding:20px;">
+        {% block content %}{% endblock %}
+    </div>
+<!-- Bootstrap JS -->
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-ENjdO4Dr2bkBIFxQpeoKekHkz6T4U0nPEzvF6KoA5rGkLfqz8H6a0Zl5WvC2lv9K"
+crossorigin="anonymous"
+></script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+

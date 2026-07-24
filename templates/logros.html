@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}🏆 Logros{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>🏆 Logros</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 8px 15px; border: none; border-radius: 5px; background: #28a745; color: white; cursor: pointer; }
+        table { border-collapse: collapse; width: 100%; margin-top: 30px; }
+        th, td { border: 1px solid #ddd; padding: 15px; text-align: left; }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        a.btn { padding: 3px 10px; border-radius: 4px; text-decoration: none; color: white; }
+        .editar { background: #007bff;  }
+        .eliminar { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <h1>🏆 Logros</h1>
+
+    <!-- Formulario para agregar -->
+    <form method="POST">
+        <h2>➕ Agregar Logro</h2>
+        <label>Descripción:</label>
+        <textarea name="descripcion" rows="3" required></textarea>
+
+        <label>Materia:</label>
+        <input type="text" name="materia" required>
+
+        <label>Periodo:</label>
+        <select name="periodo" required>
+            <option value="1">Periodo 1</option>
+            <option value="2">Periodo 2</option>
+            <option value="3">Periodo 3</option>
+        </select>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <!-- Tabla de logros -->
+    <h2>📋 Lista de Logros</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Materia</th>
+            <th>Periodo</th>
+            <th>Acciones</th>
+        </tr>
+        {% for logro in logros %}
+        <tr>
+            <td>{{ logro.id }}</td>
+            <td>{{ logro.descripcion }}</td>
+            <td>{{ logro.materia }}</td>
+            <td>{{ logro.periodo }}</td>
+            <td>
+                <a href="{{ url_for('editar_logro', id=logro.id) }}" class="btn editar">✏️ Editar</a>
+                <a href="{{ url_for('eliminar_logro', id=logro.id) }}" class="btn eliminar">🗑 Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endblock %}
+</body>
+</html>
+
+
+

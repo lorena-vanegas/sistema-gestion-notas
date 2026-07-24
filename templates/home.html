@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<style>
+/* Fondo con imagen + degradado */
+.home-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('{{ url_for("static", filename="fondo-feria.jpg") }}') no-repeat center center/cover;
+    padding: 40px;
+}
+
+/* Animaciones suaves */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Título grande y centrado */
+.home-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Subtítulo */
+.home-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Iconos grandes con animación */
+.iconos-home {
+    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.iconos-home span {
+    display: inline-block;
+    animation: bounce 1.5s infinite alternate;
+}
+
+.iconos-home span:nth-child(2) { animation-delay: 0.2s; }
+.iconos-home span:nth-child(3) { animation-delay: 0.4s; }
+.iconos-home span:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes bounce {
+    to { transform: translateY(-10px); }
+}
+</style>
+
+<div class="home-container fade-in">
+
+    <div>
+        <!-- Título -->
+        <h1 class="home-title">Sistema de Gestión de Notas</h1>
+
+        <!-- Subtítulo -->
+        <p class="home-subtitle">Administra estudiantes, materias, notas y reportes de forma sencilla y profesional.</p>
+
+        <!-- Iconos representativos -->
+        <div class="iconos-home">
+            <span>📚</span>
+            <span>📝</span>
+            <span>🏆</span>
+            <span>📄</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Agregar clase para animar al cargar
+window.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.home-container').classList.add('fade-in');
+});
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Gestión de Docentes{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 900px; margin: auto;">
+
+    <!-- Título -->
+    <h2 style="margin-bottom:20px;">👩‍🏫 Gestión de Docentes</h2>
+
+    <!-- Formulario -->
+    <div style="background:#fafafa; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:20px;">
+        <h3 style="margin-bottom:15px;">➕ Agregar Docente</h3>
+        <form method="POST" action="{{ url_for('listar_docentes') }}">
+            <div style="margin-bottom:15px;">
+                <label style="font-weight:bold;">Nombre</label>
+                <input type="text" name="nombre" placeholder="Ingrese el nombre"
+                        style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label style="font-weight:bold;">Apellido</label>
+                <input type="text" name="apellido" placeholder="Ingrese el apellido"
+                        style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label style="font-weight:bold;">Correo</label>
+                <input type="email" name="correo" placeholder="ejemplo@correo.com"
+                        style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label style="font-weight:bold;">Teléfono</label>
+                <input type="text" name="telefono" placeholder="Ingrese el teléfono"
+                        style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label style="font-weight:bold;">Asignatura</label>
+                <input type="text" name="asignatura" placeholder="Ingrese la asignatura"
+                        style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+            </div>
+            <button type="submit" style="background:#28a745; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">
+                Guardar Docente
+            </button>
+        </form>
+    </div>
+
+    <!-- Tabla -->
+    <h3 style="margin-bottom:10px;">📋 Lista de Docentes</h3>
+    <table style="width:100%; border-collapse:collapse; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <thead style="background:#28a745; color:white;">
+            <tr>
+                <th style="padding:10px;">Nombre</th>
+                <th style="padding:10px;">Apellido</th>
+                <th style="padding:10px;">Correo</th>
+                <th style="padding:10px;">Teléfono</th>
+                <th style="padding:10px;">Asignatura</th>
+                <th style="padding:10px;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for docente in docentes %}
+            <tr style="background: {% if loop.index is even %}#f9f9f9{% else %}#ffffff{% endif %};">
+                <td style="padding:10px;">{{ docente.nombre }}</td>
+                <td style="padding:10px;">{{ docente.apellido }}</td>
+                <td style="padding:10px;">{{ docente.correo }}</td>
+                <td style="padding:10px;">{{ docente.telefono }}</td>
+                <td style="padding:10px;">{{ docente.asignatura }}</td>
+                <td style="padding:10px;">
+                    <a href="{{ url_for('editar_docente', id=docente.id) }}" 
+                      style="background:#007bff; color:white; padding:5px 10px; border-radius:5px; text-decoration:none;">
+                      ✏️ Editar
+                    </a>
+                    <a href="{{ url_for('eliminar_docente', id=docente.id) }}" 
+                      style="background:#dc3545; color:white; padding:5px 10px; border-radius:5px; text-decoration:none;"
+                        onclick="return confirm('¿Seguro que deseas eliminar este docente?');">
+                        🗑️ Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" style="padding:10px; text-align:center;">No hay docentes registrados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
+
+
+

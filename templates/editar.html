@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Estudiante</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+    form {
+      background: white; padding: 20px; border-radius: 10px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+      max-width: 700px; margin: auto;
+    }
+    label { font-weight: bold; }
+    input, select {
+      width: 100%; padding: 8px; margin: 6px 0 15px 0;
+      border: 1px solid #ccc; border-radius: 6px;
+    }
+    button {
+      padding: 10px 15px; border: none; border-radius: 6px;
+      cursor: pointer; margin-top: 10px;
+    }
+    .btn-save { background: #28a745; color: white; }
+    .btn-cancel { background: #dc3545; color: white; text-decoration: none; padding: 10px 15px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Editar Estudiante</h1>
+  <form action="{{ url_for('editar_estudiante', id=estudiante.id) }}" method="POST">
+    <label for="nombres">Nombres completos:</label>
+    <input type="text" id="nombres" name="nombres" value="{{ estudiante.nombres }}" required>
+
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos" name="apellidos" value="{{ estudiante.apellidos }}" required>
+
+    <label for="tipo_documento">Tipo de documento:</label>
+    <input type="text" id="tipo_documento" name="tipo_documento" value="{{ estudiante.tipo_documento }}" required>
+
+    <label for="documento">Número de documento:</label>
+    <input type="number" id="documento" name="documento" value="{{ estudiante.documento }}" required>
+
+    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ estudiante.fecha_nacimiento }}" required>
+
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion" value="{{ estudiante.direccion }}">
+
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" value="{{ estudiante.telefono }}">
+
+    <label for="grado">Grado:</label>
+    <input type="text" id="grado" name="grado" value="{{ estudiante.grado }}">
+
+    <label for="sede">Sede:</label>
+    <input type="text" id="sede" name="sede" value="{{ estudiante.sede }}">
+
+    <label for="genero">Género:</label>
+    <input type="text" id="genero" name="genero" value="{{ estudiante.genero }}">
+
+    <label for="estrato">Estrato:</label>
+    <input type="number" id="estrato" name="estrato" value="{{ estudiante.estrato }}">
+
+    <label for="sisben">¿Tiene Sisbén?</label>
+    <input type="text" id="sisben" name="sisben" value="{{ estudiante.sisben }}">
+
+    <label for="eps">EPS:</label>
+    <input type="text" id="eps" name="eps" value="{{ estudiante.eps }}">
+
+    <label for="tipo_sangre">Tipo de sangre:</label>
+    <input type="text" id="tipo_sangre" name="tipo_sangre" value="{{ estudiante.tipo_sangre }}">
+
+    <label for="discapacidad">¿Tiene discapacidad?</label>
+    <input type="text" id="discapacidad" name="discapacidad" value="{{ estudiante.discapacidad }}">
+
+    <label for="tipo_discapacidad">Tipo de discapacidad:</label>
+    <input type="text" id="tipo_discapacidad" name="tipo_discapacidad" value="{{ estudiante.tipo_discapacidad }}">
+
+    <button type="submit" class="btn-save">Guardar cambios</button>
+    <a href="{{ url_for('index') }}" class="btn-cancel">Cancelar</a>
+  </form>
+</body>
+</html>

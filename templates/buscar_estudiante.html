@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Estudiante</title>
+</head>
+<body>
+    <h1>Buscar Estudiante</h1>
+
+    <form method="GET" action="{{ url_for('buscar_estudiante') }}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Nombre o Documento">
+        <button type="submit">🔍 Buscar</button>
+    </form>
+
+    {% if estudiantes %}
+        <h2>Resultados:</h2>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Documento</th>
+                <th>Acciones</th>
+            </tr>
+            {% for est in estudiantes %}
+            <tr>
+                <td>{{ est.nombre }}</td>
+                <td>{{ est.apellido }}</td>
+                <td>{{ est.numero_documento }}</td>
+                <td>
+                    <a href="{{ url_for('editar_estudiante', id=est.id) }}">✏️ Editar</a>
+                    <form method="POST" action="{{ url_for('eliminar_estudiante', id=est.id) }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('¿Eliminar estudiante?');">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% elif query %}
+        <p>No se encontraron resultados para "{{ query }}".</p>
+    {% endif %}
+
+    <p><a href="{{ url_for('estudiantes') }}">⬅️ Volver</a></p>
+</body>
+</html>
+

@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .reporte-estudiante {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 40px 50px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .reporte-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .reporte-header h2 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .reporte-header p {
+        color: #555;
+        font-size: 15px;
+        margin: 3px 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+    }
+
+    thead {
+        background-color: #3498db;
+        color: white;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+        background-color: #eaf4ff; /* Azul más suave, pero mantiene el texto legible */
+        color: #000; /* Asegura que las letras se vean sobre fondo claro */
+    }
+
+    th {
+        font-weight: 600;
+        background-color: #3498db;
+        color: white;
+    }
+
+    .no-datos {
+        text-align: center;
+        color: #888;
+        font-style: italic;
+        margin-top: 20px;
+    }
+
+    /* Firmas */
+    .firmas {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        color: #333;
+    }
+
+    .firmas div {
+        width: 40%;
+    }
+
+    .firmas hr {
+        border: none;
+        border-top: 1px solid #333;
+        margin: 40px 0 5px 0;
+    }
+
+    /* Botón de imprimir */
+    .btn-imprimir {
+        display: block;
+        width: 200px;
+        margin: 25px auto 10px auto;
+        padding: 10px 20px;
+        background-color: #27ae60;
+        color: white;
+        text-align: center;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .btn-imprimir:hover {
+        background-color: #1e874b;
+    }
+
+    /* Ocultar elementos al imprimir */
+    @media print {
+        nav, header, footer, .btn-imprimir {
+            display: none !important;
+        }
+        body {
+            background: white;
+        }
+        .reporte-estudiante {
+            box-shadow: none;
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+</style>
+
+
+<div class="reporte-estudiante">
+    <div class="reporte-header">
+        <h2>📘 Reporte Académico - Periodo {{ periodo }}</h2>
+        <h2>Intitución Educativa La Rioja</h2>
+        <p><strong>Estudiante:</strong> {{ estudiante['nombre'] }} {{ estudiante['apellido'] }}</p>
+        <p><strong>Grado:</strong> {{ estudiante['grado'] }}</p>
+        <p><strong>Fecha de generación:</strong> {{ fecha_generacion }}</p>
+    </div>
+
+    {% if datos and datos|length > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Areas</th>
+                    <th>Logros</th>
+                    <th>Nota</th>
+                    <th>Desempeño</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for fila in datos %}
+        <tr>
+            <td>{{ fila['materia'] }}</td>
+            <td>{{ fila['logro'] }}</td>
+            <td>{{ fila['nota'] }}</td>
+            <td>{{ fila['desempeño'] }}</t
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="no-datos">No hay datos registrados para este estudiante en este periodo.</p>
+    {% endif %}
+
+    <a href="#" class="btn-imprimir" onclick="window.print()">🖨️ Imprimir Reporte</a>
+
+    <div class="firmas">
+        <div>
+            <hr>
+            <p><strong>Docente Director</strong></p>
+        </div>
+        <div>
+            <hr>
+            <p><strong>Firma del Rector(a)</strong></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+

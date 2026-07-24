@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Nota{% endblock %}
+
+
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Agregar Nota 📝</h2>
+
+
+    <form action="{{ url_for('agregar_nota') }}" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Estudiante:</label>
+            <select name="estudiante_id" class="form-select" required>
+                <option value="">Seleccionar...</option>
+                {% for e in estudiantes %}
+                <option value="{{ e.id }}">{{ e.nombre }} {{ e.apellido }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Materia:</label>
+            <select name="materia_id" class="form-select" required>
+                <option value="">Seleccionar...</option>
+                {% for m in materias %}
+                <option value="{{ m.id }}">{{ m.nombre_materia }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+
+        <div class="mb-3">
+            <label class="form-label">Periodo:</label>
+            <select name="periodo" class="form-select" required>
+                <option value="1">Periodo 1</option>
+                <option value="2">Periodo 2</option>
+                <option value="3">Periodo 3</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nota:</label>
+            <input type="number" name="nota" class="form-control" min="1" max="5" step="0.1" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">💾 Guardar</button>
+        <a href="{{ url_for('listar_notas') }}" class="btn btn-secondary">🔙 Volver</a>
+    </form>
+</div>
+
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">📝 Lista de Notas</h2>
+    <a href="{{ url_for('listar_notas') }}" class="btn btn-success mb-3">➕ Agregar Nota</a>
+
+    {% if notas %}
+    <table class="table table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Estudiante</th>
+                <th>Materia</th>
+                <th>Periodo</th>
+                <th>Nota</th>
+                <th>Desempeño</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in notas %}
+            <tr>
+                <td>{{ n.id }}</td>
+                <td>{{ n.estudiante.nombre }} {{ n.estudiante.apellido }}</td>
+                <td>{{ n.materia.nombre_materia }}</td>
+                <td>{{ n.periodo }}</td>
+                <td>{{ n.nota }}</td>
+                <td>
+                    {% if n.nota < 3 %} Bajo
+                    {% elif n.nota < 4 %} Básico
+                    {% elif n.nota <= 4.5 %} Alto
+                    {% else %} Superior
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_nota', id=n.id) }}" class="btn btn-primary btn-sm">✏️ Editar</a>
+<a href="{{ url_for('eliminar_nota', id=n.id) }}" class="btn btn-danger btn-sm" 
+    onclick="return confirm('¿Seguro que deseas eliminar esta nota?')">🗑️ Eliminar</a>
+    <a href="{{ url_for('reporte_estudiante', estudiante_id=n.estudiante.id, periodo=n.periodo) }}" 
+    class="btn btn-info btn-sm">📄 Reporte</a>
+
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-center">No hay notas registradas aún.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+

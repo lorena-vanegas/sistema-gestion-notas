@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notas del estudiante</title>
+    <style>
+        .card { border: 1px solid #ccc; border-radius: 8px; padding: 15px; width: 250px; margin: 20px; box-shadow: 2px 2px 8px rgba(0,0,0,0.1);}
+        .card h3 { margin: 0 0 10px 0;}
+        .btn { padding: 5px 10px; border-radius: 4px; border: none; color: white; cursor: pointer; margin-right: 5px; font-size: 0.85rem;}
+        .btn-ver { background-color: #007bff; }
+        .btn-ver:hover { background-color: #0069d9; }
+        .btn-exportar { background-color: #28a745; }
+        .btn-exportar:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    {% for estudiante in estudiantes %}
+<div class="card">
+    <h3>{{ estudiante.nombre }} {{ estudiante.apellido }}</h3>
+    <p>ID: {{ estudiante.id }}</p>
+    <div>
+        <form action="{{ url_for('agregar_nota', estudiante_id=estudiante.id) }}" method="get" style="display:inline;">
+            <button class="btn btn-ver">Ver / Editar Notas</button>
+        </form>
+        <form action="{{ url_for('exportar_excel', estudiante_id=estudiante.id) }}" method="get" style="display:inline;">
+            <button class="btn btn-exportar">Exportar Excel</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+
+
+
+
+</body>
+</html>
+

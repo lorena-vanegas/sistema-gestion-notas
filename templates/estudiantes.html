@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}👨‍🎓 Estudiantes{% endblock %}
+
+{% block content %}
+<h2>👨‍🎓 Estudiantes</h2>
+
+<!-- Formulario en card centrado -->
+<div class="card" style="max-width: 800px; margin: auto;">
+    <h3>➕ Agregar Estudiante</h3>
+    <form method="POST" action="{{ url_for('agregar_estudiante') }}">
+        <label>Nombre:</label>
+        <input type="text" name="nombre" required>
+
+        <label>Apellido:</label>
+        <input type="text" name="apellido" required>
+
+        <label>Tipo de Documento:</label>
+        <select name="tipo_documento" required>
+            <option value="CC">Cédula de Ciudadanía</option>
+            <option value="TI">Tarjeta de Identidad</option>
+            <option value="RC">Registro Civil</option>
+        </select>
+
+        <label>Número de Documento:</label>
+        <input type="text" name="numero_documento" required>
+
+        <label>Fecha de Nacimiento:</label>
+        <input type="date" name="fecha_nacimiento" required>
+
+        <label>Género:</label>
+        <select name="genero" required>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <label>Grado:</label>
+        <select name="grado" required>
+            <option value="Preescolar">Preescolar</option>
+            <option value="1">1°</option>
+            <option value="2">2°</option>
+            <option value="3">3°</option>
+            <option value="4">4°</option>
+            <option value="5">5°</option>
+            <option value="6">6°</option>
+            <option value="7">7°</option>
+            <option value="8">8°</option>
+            <option value="9">9°</option>
+            <option value="10">10°</option>
+            <option value="11">11°</option>
+        </select>
+
+        <label>Sede:</label>
+        <input type="text" name="sede">
+
+        <label>Dirección:</label>
+        <input type="text" name="direccion" placeholder="Ejemplo: Calle 123 #45-67">
+
+        <label>Estrato:</label>
+        <select name="estrato">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+
+        <label>EPS:</label>
+        <input type="text" name="eps">
+
+        <label>Tipo de Sangre:</label>
+        <select name="tipo_sangre">
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select>
+
+        <label>¿Tiene discapacidad?</label>
+        <select name="discapacidad">
+            <option value="No">No</option>
+            <option value="Sí">Sí</option>
+        </select>
+        <div class="form-group">
+  <label for="telefono"> Teléfono</label>
+  <input type="text" id="telefono" name="telefono" required>
+</div>
+        <label>¿Cuál?</label>
+        <input type="text" name="cual_discapacidad" placeholder="Ejemplo: Visual, Auditiva, etc.">
+
+        <label>SISBEN:</label>
+        <select name="sisben">
+            <option value="No aplica">No aplica</option>
+            <option value="Grupo A">Grupo A</option>
+            <option value="Grupo B">Grupo B</option>
+            <option value="Grupo C">Grupo C</option>
+            <option value="Grupo D">Grupo D</option>
+        </select>
+
+        <button type="submit" class="btn btn-success">➕ Agregar Estudiante</button>
+    </form>
+</div>
+
+<!-- Tabla de estudiantes -->
+<div class="card" style="max-width: 1000px; margin: 30px auto;">
+    <h3>📋 Lista de Estudiantes</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Documento</th>
+                <th>Grado</th>
+                <th>Sede</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for estudiante in estudiantes %}
+            <tr>
+                <td>{{ estudiante.id }}</td>
+                <td>{{ estudiante.nombre }}</td>
+                <td>{{ estudiante.apellido }}</td>
+                <td>{{ estudiante.numero_documento }}</td>
+                <td>{{ estudiante.grado }}</td>
+                <td>{{ estudiante.sede }}</td>
+                <td style="display:flex; gap:4px;">
+
+    <form action="{{ url_for('editar_estudiante', id=estudiante.id) }}" method="get">
+        <button type="submit" class="btn btn-editar">✏️ Editar</button>
+    </form>
+
+    <form action="{{ url_for('eliminar_estudiante', id=estudiante.id) }}" method="post">
+        <button type="submit" class="btn btn-eliminar" onclick="return confirm('¿Seguro que deseas eliminar este estudiante?')">🗑️ Eliminar</button>
+    </form>
+</td>
+            </tr>
+            {% else %}
+            
+        <tr><td colspan="16">No hay estudiantes registrados</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const flash = document.getElementById("flash-message");
+    if(flash){
+      setTimeout(() => {
+        flash.style.display = "none";
+      }, 3000); // desaparece en 3 segundos
+    }
+  });
+</script>
+
+
+</body>
+</html>
+
+
+
+

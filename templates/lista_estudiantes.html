@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Estudiantes</title>
+</head>
+<body>
+  <h1>Lista de Estudiantes</h1>
+
+  <!-- Buscador -->
+  <form method="get" action="{{ url_for('listar_estudiantes') }}">
+    <input type="text" name="q" value="{{ q }}" placeholder="Buscar por nombre, apellido o documento">
+    <button type="submit">Buscar</button>
+  </form>
+
+  <!-- Botón para crear nuevo -->
+  <p>
+    <a href="{{ url_for('estudiantes') }}">➕ Nuevo estudiante</a>
+  </p>
+
+  <!-- Tabla -->
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Documento</th>
+        <th>Grado</th>
+        <th>Sede</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for est in estudiantes %}
+        <tr>
+          <td>{{ est.id }}</td>
+          <td>{{ est.nombre }}</td>
+          <td>{{ est.apellido }}</td>
+          <td>{{ est.numero_documento }}</td>
+          <td>{{ est.grado }}</td>
+          <td>{{ est.sede }}</td>
+          <td>
+            <!-- Editar -->
+            <form action="{{ url_for('editar_estudiante', id=est.id) }}" method="get" style="display:inline;">
+              <button type="submit">✏️ Editar</button>
+            </form>
+
+            <!-- Eliminar -->
+            <form action="{{ url_for('eliminar_estudiante', id=est.id) }}" method="post" style="display:inline;">
+              <button type="submit" onclick="return confirm('¿Seguro de eliminar este estudiante?')">🗑️ Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="7">No hay estudiantes registrados.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
+
